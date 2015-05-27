@@ -9,12 +9,20 @@ module Main
 
     def select_conversation(user)
       params._user_id = user._id
+      unread_notifications_from(user).then do |results|
+        results.each { |notification| _notifications.delete(notification) }
+      end
       page._new_message = ''
+    end
+
+    def unread_notifications_from(user)
+      _notifications.find({ sender_id: user._id, receiver_id: Volt.current_user._id })
     end
 
     def send_message
       unless page._new_message.strip.empty?
         _messages << { sender_id: Volt.current_user._id, receiver_id: params._user_id, text: page._new_message }
+        _notifications << { sender_id: Volt.current_user._id, receiver_id: params._user_id }
         page._new_message = ''
       end
     end
