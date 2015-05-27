@@ -3,13 +3,19 @@
 
 <:Body>
   <h1>Home</h1>
-  <div class="row">
-    <div class="col-md-4">
-      {{ _users.each do |user| }}
-        <div>
-          {{ user._name }}
-        </div>
-      {{ end }}
+  {{ if Volt.user }}
+    <div class="row">
+      <div class="col-md-4">
+        {{ _users.each do |user| }}
+          {{ if user != Volt.user }}
+            <div class="contact  {{ if params._user_id == user._id }} active {{ end }}" e-click="select_conversation(user)">
+              {{ user._name }}
+            </div>
+          {{ end }}
+        {{ end }}
+      </div>
     </div>
-  </div>
+  {{ else }}
+    <p>Log in or register in order to access chat.</p>
+  {{ end }}
 
