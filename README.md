@@ -1,4 +1,3 @@
-# Place your app's docs here.
+# Volt Chat
 
-## New to Volt?
-Be sure to read the volt docs at http://docs.voltframework.com
+chat app that uses volt http://docs.voltframework.com
