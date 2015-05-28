@@ -31,6 +31,10 @@ module Main
       _messages.find({ "$or" => [{ sender_id: Volt.current_user._id, receiver_id: params._user_id }, { sender_id: params._user_id, receiver_id: Volt.current_user._id }] })
     end
 
+    def evaluate_notifications
+      _notifications.find({ sender_id: params._user_id, receiver_id: Volt.current_user._id }).each { |n| _notifications.delete(n) }
+    end
+
     private
 
     # The main template contains a #template binding that shows another
